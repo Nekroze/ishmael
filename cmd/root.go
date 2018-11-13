@@ -3,11 +3,11 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"time"
 
+	"github.com/briandowns/spinner"
 	"github.com/spf13/cobra"
 )
-
-var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -20,18 +20,49 @@ var rootCmd = &cobra.Command{
 // This is called by main.main(). It only needs to happen once to the rootCmd.
 func Execute() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		panic(err)
 	}
 }
 
-func init() {
-	// Here you will define your flags and configuration settings.
-	// Cobra supports persistent flags, which, if defined here,
-	// will be global for your application.
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ishmael.yaml)")
+var wait int
 
-	// Cobra also supports local flags, which will only run
-	// when this action is called directly.
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+func init() {
+	rootCmd.PersistentFlags().IntVar(&wait, "wait", 0, "If given a positive integer then it will wait up to this many seconds for the subcommand to succeed.")
+}
+
+type cmdFunc func() (bool, error)
+
+func runCmd(cf cmdFunc) {
+	if wait <= 0 {
+		if !tickCmd(cf) {
+			os.Exit(1)
+		}
+		return
+	}
+
+	s := spinner.New(spinner.CharSets[43], 100*time.Millisecond)
+	s.Start()
+	defer s.Stop()
+
+	timeout := time.After(time.Duration(wait) * time.Second)
+	tick := time.Tick(1 * time.Second)
+	for {
+		select {
+		case <-timeout:
+			os.Exit(1)
+		case <-tick:
+			if tickCmd(cf) {
+				os.Exit(0)
+			}
+		}
+	}
+}
+
+func tickCmd(cf cmdFunc) bool {
+	done, err := cf()
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("TICK OUTPUT", done)
+	return done
 }

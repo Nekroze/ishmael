@@ -1,36 +1,22 @@
 package cmd
 
 import (
-	"fmt"
-
+	"github.com/Nekroze/ishmael/interactions"
 	"github.com/spf13/cobra"
 )
 
-// healthyCmd represents the healthy command
 var healthyCmd = &cobra.Command{
-	Use:   "healthy",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "healthy [container_id]",
+	Args:  cobra.MinimumNArgs(1),
+	Short: "check if a container is up and healthy",
+	Long:  `check if a container is up and healthy.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("healthy called")
+		runCmd(func() (bool, error) {
+			return interactions.ContainerIsHealthy(args[0])
+		})
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(healthyCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// healthyCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// healthyCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
