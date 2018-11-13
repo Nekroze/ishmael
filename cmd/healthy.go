@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/Nekroze/ishmael/interactions"
 	"github.com/spf13/cobra"
 )
@@ -11,9 +13,9 @@ var healthyCmd = &cobra.Command{
 	Short: "check if a container is up and healthy",
 	Long:  `check if a container is up and healthy.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		runCmd(func() (bool, error) {
+		os.Exit(runCmd(func() (bool, error) {
 			return interactions.ContainerIsHealthy(args[0])
-		})
+		}))
 	},
 }
 
