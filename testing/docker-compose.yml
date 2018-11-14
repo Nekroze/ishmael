@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    tests:
+        build:
+            context: ../
+            dockerfile: testing/Dockerfile
+        volumes:
+            - './features:/usr/src/app/features:rw'
+            - '/var/run/docker.sock:/var/run/docker.sock:ro'
