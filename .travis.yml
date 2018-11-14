@@ -1,0 +1,16 @@
+sudo: required
+
+language: nix
+
+git:
+  quiet: true
+
+stages:
+  - Tests
+
+jobs:
+  include:
+
+    - stage: Tests
+      name: Acceptance Tests
+      script: ./testing/run.sh
