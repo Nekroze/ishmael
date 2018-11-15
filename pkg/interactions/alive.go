@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/Nekroze/ishmael/pkg/runner"
-	"github.com/docker/docker/client"
 )
 
 var Deadline = time.Now().Add(time.Second)
@@ -15,12 +14,7 @@ func ContainerIsAlive(id string) error {
 	ctx, cancel := context.WithDeadline(context.Background(), Deadline)
 	defer cancel()
 
-	cli, err := client.NewEnvClient()
-	if err != nil {
-		return err
-	}
-
-	info, err := cli.ContainerInspect(ctx, id)
+	info, err := GetClient().ContainerInspect(ctx, id)
 	if err != nil {
 		return err
 	}
