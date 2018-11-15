@@ -2,9 +2,13 @@ version: '3'
 
 services:
     tests:
+        container_name: dab_tests
         build:
             context: ../
             dockerfile: testing/Dockerfile
         volumes:
             - './features:/usr/src/app/features:rw'
+            - './docker-compose.yml:/usr/src/app/docker-compose.yml:ro'
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
+        command: 
+            - '--order=random'
