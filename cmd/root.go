@@ -24,4 +24,5 @@ func init() {
 
 	rootCmd.AddCommand(subcommands.Alive)
 	rootCmd.AddCommand(subcommands.Healthy)
+	rootCmd.AddCommand(subcommands.Find)
 }
