@@ -48,3 +48,13 @@ ishmael healthy --wait 10 f31760063290
 ```
 
 Should the container be running but not have any health status or not even be running at all then it will stop immediately.
+
+### Find the id for a docker compose project's service
+
+Say we have a docker compose project called foo with a service called bar. If we wanted to get the ID of a running instance of the service, the `find` command is your friend.
+
+```bash
+ishmael find foo bar
+```
+
+This will return 0 and print out the ID of the first running instance of the service it can find.
