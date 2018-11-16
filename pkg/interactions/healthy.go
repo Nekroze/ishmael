@@ -8,10 +8,7 @@ import (
 )
 
 func ContainerIsHealthy(id string) error {
-	ctx, cancel := context.WithDeadline(context.Background(), Deadline)
-	defer cancel()
-
-	info, err := GetClient().ContainerInspect(ctx, id)
+	info, err := GetClient().ContainerInspect(context.Background(), id)
 	if err != nil {
 		return err
 	}
