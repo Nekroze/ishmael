@@ -21,6 +21,6 @@ Feature: Alive subcommand checks container running status
 	Scenario: Can check existing container is running immediately
 		Given I successfully run `docker run -dit --rm --name ishmael_tests_alive_1 alpine sh`
 
-		When I run `ishmael alive ishmael_tests_alive_1 `
+		When I run `ishmael alive ishmael_tests_alive_1`
 
 		Then the exit status should be 0

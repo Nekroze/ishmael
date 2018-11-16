@@ -20,7 +20,7 @@ func Execute() {
 	}
 }
 func init() {
-	rootCmd.PersistentFlags().IntVar(&subcommands.Deadline, "wait", 0, "If given a positive integer then it will wait up to this many seconds for the subcommand to succeed.")
+	rootCmd.PersistentFlags().IntVar(&subcommands.Deadline, "wait", 1, "If given a positive integer then it will wait up to this many seconds for the subcommand to succeed.")
 
 	rootCmd.AddCommand(subcommands.Alive)
 	rootCmd.AddCommand(subcommands.Healthy)

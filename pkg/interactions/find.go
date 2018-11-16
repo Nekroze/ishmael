@@ -10,8 +10,7 @@ import (
 )
 
 func FindComposeService(project, service string) error {
-	ctx, cancel := context.WithDeadline(context.Background(), Deadline)
-	defer cancel()
+	ctx := context.Background()
 
 	cli := GetClient()
 

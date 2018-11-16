@@ -14,7 +14,7 @@ type EphemeralError struct {
 }
 
 func UpgradeToEphemeral(e error) error {
-	return EphemeralError{e}
+	return &EphemeralError{e}
 }
 
 type ErrorClassifier struct {

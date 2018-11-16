@@ -22,6 +22,20 @@ Feature: Healthy subcommand checks container healthy status
 		Given I successfully run `docker run -dit --rm --health-cmd true --health-interval 500ms --name ishmael_tests_healthy_1 alpine sh`
 		And I successfully run `sleep 1`
 
-		When I run `ishmael healthy ishmael_tests_healthy_1 `
+		When I run `ishmael healthy ishmael_tests_healthy_1`
 
 		Then the exit status should be 0
+
+	Scenario: Can wait until existing container is healthy
+		Given I successfully run `docker run -dit --rm --health-cmd true --health-interval 2s --name ishmael_tests_healthy_2 alpine sh`
+
+		When I run `ishmael healthy --wait 5 ishmael_tests_healthy_2`
+
+		Then the exit status should be 0
+
+	Scenario: Can wait until existing container is healthy but timeout if it takes too long
+		Given I successfully run `docker run -dit --rm --health-cmd true --health-interval 3s --name ishmael_tests_healthy_3 alpine sh`
+
+		When I run `ishmael healthy --wait 2 ishmael_tests_healthy_3`
+
+		Then the exit status should be 1
