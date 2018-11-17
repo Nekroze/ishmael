@@ -1,3 +1,5 @@
 README.md
-/testing
 LICENSE
+docker-compose.yml
+/testing/run.sh
+/build.sh
