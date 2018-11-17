@@ -17,7 +17,7 @@ var Alive = &cobra.Command{
 	Long:  `check if a container is up and running.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		if Deadline > 1 {
-			s := spinner.New(spinner.CharSets[4], 250*time.Millisecond)
+			s := spinner.New(spinner.CharSets[12], 250*time.Millisecond)
 			s.Start()
 			defer s.Stop()
 		}
