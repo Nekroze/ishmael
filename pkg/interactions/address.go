@@ -37,11 +37,13 @@ func ContainerAddresses(id string) error {
 	if len(info.Config.ExposedPorts) == 0 {
 		return errors.New("Container has no exposed ports")
 	}
+	seen := map[string]bool{}
 	for port := range info.Config.ExposedPorts {
-		fmt.Printf("%s:%s\n",
-			addr,
-			strings.Split(string(port), "/")[0],
-		)
+		pnum := strings.Split(string(port), "/")[0]
+		if !seen[pnum] {
+			fmt.Printf("%s:%s\n", addr, pnum)
+			seen[pnum] = true
+		}
 	}
 	return nil
 }
