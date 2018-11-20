@@ -12,7 +12,7 @@ import (
 func ContainerAddresses(id string) error {
 	info, err := GetClient().ContainerInspect(context.Background(), id)
 	if err != nil {
-		return err
+		return runner.UpgradeToEphemeral(err)
 	}
 
 	if info.NetworkSettings == nil {

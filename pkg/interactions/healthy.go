@@ -10,7 +10,7 @@ import (
 func ContainerIsHealthy(id string) error {
 	info, err := GetClient().ContainerInspect(context.Background(), id)
 	if err != nil {
-		return err
+		return runner.UpgradeToEphemeral(err)
 	}
 
 	if info.State == nil || info.State.Health == nil {
