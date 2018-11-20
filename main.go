@@ -1,13 +1,7 @@
 package main
 
-import (
-	"context"
-
-	"github.com/Nekroze/ishmael/cmd"
-	"github.com/thecodeteam/goodbye"
-)
+import "github.com/Nekroze/ishmael/cmd"
 
 func main() {
-	goodbye.Notify(context.Background())
 	cmd.Execute()
 }
