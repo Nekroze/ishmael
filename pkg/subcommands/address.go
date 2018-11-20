@@ -20,7 +20,6 @@ var Address = &cobra.Command{
 				return interactions.ContainerAddresses(args[0])
 			},
 			time.Duration(Deadline)*time.Second,
-			false,
 		))
 	},
 }

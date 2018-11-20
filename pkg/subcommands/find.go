@@ -22,7 +22,6 @@ var Find = &cobra.Command{
 				return interactions.FindComposeService(args[0], args[1])
 			},
 			time.Duration(Deadline)*time.Second,
-			false,
 		))
 	},
 }

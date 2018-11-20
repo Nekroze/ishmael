@@ -19,7 +19,6 @@ require (
 	github.com/spf13/pflag v1.0.3 // indirect
 	github.com/stevvooe/resumable v0.0.0-20180830230917-22b14a53ba50 // indirect
 	github.com/stretchr/testify v1.2.2 // indirect
-	github.com/thecodeteam/goodbye v0.0.0-20170927022442-a83968bda2d3
 	golang.org/x/net v0.0.0-20181108082009-03003ca0c849 // indirect
 	golang.org/x/sys v0.0.0-20181107165924-66b7b1311ac8 // indirect
 )
