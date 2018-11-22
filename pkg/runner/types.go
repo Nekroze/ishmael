@@ -33,11 +33,21 @@ func (c ErrorClassifier) Classify(err error) retrier.Action {
 var AttemptInterval = time.Second
 
 func RunAtom(atom CommandAtom, timeout time.Duration) (exit int) {
-	r := retrier.New(
+	if timeout == AttemptInterval {
+		return errorToExitCode(atom())
+	}
+	return errorToExitCode(atomRetry(atom, timeout))
+}
+
+func atomRetry(atom CommandAtom, timeout time.Duration) error {
+	return retrier.New(
 		retrier.ConstantBackoff(int(timeout/AttemptInterval), AttemptInterval),
 		ErrorClassifier{},
-	)
-	if e := r.Run(atom); e != nil {
+	).Run(atom)
+}
+
+func errorToExitCode(e error) (exit int) {
+	if e != nil {
 		exit = 1
 	}
 	return exit
