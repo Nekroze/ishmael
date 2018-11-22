@@ -16,7 +16,7 @@ func FindComposeService(project, service string) error {
 
 	containers, err := cli.ContainerList(ctx, types.ContainerListOptions{})
 	if err != nil {
-		return err
+		return runner.UpgradeToEphemeral(err)
 	}
 
 	for _, container := range containers {
