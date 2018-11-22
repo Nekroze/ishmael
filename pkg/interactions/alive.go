@@ -13,7 +13,7 @@ var Deadline = time.Now().Add(time.Second)
 func ContainerIsAlive(id string) error {
 	info, err := GetClient().ContainerInspect(context.Background(), id)
 	if err != nil {
-		return err
+		return runner.UpgradeToEphemeral(err)
 	}
 
 	if info.State == nil || !info.State.Running || info.State.Restarting {
