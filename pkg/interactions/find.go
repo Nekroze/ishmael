@@ -19,6 +19,7 @@ func FindComposeService(project, service string) error {
 		return runner.UpgradeToEphemeral(err)
 	}
 
+	found := false
 	for _, container := range containers {
 		if container.Labels["com.docker.compose.oneoff"] == "True" ||
 			container.Labels["com.docker.compose.project"] != project ||
@@ -32,9 +33,12 @@ func FindComposeService(project, service string) error {
 		}
 
 		if info.State != nil && info.State.Running && !info.State.Restarting {
+			found = true
 			fmt.Println(info.ID)
-			return nil
 		}
+	}
+	if found {
+		return nil
 	}
 	return runner.UpgradeToEphemeral(errors.New("No running containers found matching that project and service"))
 }

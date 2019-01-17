@@ -13,7 +13,7 @@ ENV GO111MODULE=on
 
 # Deps
 COPY go.mod go.sum ./
-RUN go get -v -d ./...
+RUN go mod download
 
 # Check and compile everything
 COPY main.go ./main.go
