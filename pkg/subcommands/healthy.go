@@ -7,6 +7,7 @@ import (
 	"github.com/Nekroze/ishmael/pkg/interactions"
 	"github.com/Nekroze/ishmael/pkg/runner"
 	"github.com/briandowns/spinner"
+	isatty "github.com/mattn/go-isatty"
 	"github.com/spf13/cobra"
 )
 
@@ -16,7 +17,7 @@ var Healthy = &cobra.Command{
 	Short: "check if a container is up and healthy",
 	Long:  `check if a container is up and healthy.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if Deadline > 1 {
+		if Deadline > 1 && isatty.IsTerminal(os.Stdout.Fd()) {
 			s := spinner.New(spinner.CharSets[12], 250*time.Millisecond)
 			s.Start()
 			defer s.Stop()
