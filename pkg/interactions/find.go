@@ -40,5 +40,5 @@ func FindComposeService(project, service string) error {
 	if found {
 		return nil
 	}
-	return runner.UpgradeToEphemeral(errors.New("No running containers found matching that project and service"))
+	return runner.UpgradeToEphemeral(errors.New("no running containers found matching that project and service"))
 }

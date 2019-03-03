@@ -27,7 +27,7 @@ Feature: Address subcommand gets container addresses
 		# https://regex101.com/r/Roie27/1
 		And the output should match /^([0-9]+\.){3}[0-9]+:8080$/
 
-	Scenario: Can get addresses to running container with host netowrking and exposing two ports
+	Scenario: Can get addresses to running container with host networking and exposing two ports
 		Given I successfully run `docker run -dit --rm --net host --expose 8081 --expose 8082 --name ishmael_tests_address_2 alpine sh`
 
 		When I run `ishmael address ishmael_tests_address_2`
@@ -35,3 +35,12 @@ Feature: Address subcommand gets container addresses
 		Then the exit status should be 0
 		And the output should contain "127.0.0.1:8081"
 		And the output should contain "127.0.0.1:8082"
+
+	Scenario: Can get addresses to running container publishing ports
+		Given I successfully run `docker run -dit --rm --publish 8081 --name ishmael_tests_address_3 alpine sh`
+
+		When I run `ishmael address ishmael_tests_address_3`
+
+		Then the exit status should be 0
+		And the output should match /^0\.0\.0\.0:3\d+$/
+		And the output should match /^172\.\d+\.\d+\.\d+:8081$/

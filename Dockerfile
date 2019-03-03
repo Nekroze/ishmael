@@ -1,4 +1,4 @@
-FROM golang:1 AS build
+FROM golang:1.12 AS build
 
 ARG PROJECT=ishmael
 ENV PROJECT="${PROJECT}"
@@ -6,7 +6,7 @@ ENV PROJECT="${PROJECT}"
 WORKDIR "$GOPATH/src/github.com/Nekroze/${PROJECT}"
 
 # Tools
-RUN curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b "$GOPATH/bin" v1.12.2 \
+RUN curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | bash -s -- -b "$GOPATH/bin" v1.15.0 \
  && go get -u github.com/kyoh86/richgo
 # Go 1.11+ modules
 ENV GO111MODULE=on

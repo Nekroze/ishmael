@@ -17,7 +17,7 @@ func ContainerIsAlive(id string) error {
 	}
 
 	if info.State == nil || !info.State.Running || info.State.Restarting {
-		return runner.UpgradeToEphemeral(errors.New("Container not running"))
+		return runner.UpgradeToEphemeral(errors.New("container not running"))
 	}
 
 	return nil

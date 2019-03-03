@@ -14,16 +14,16 @@ func ContainerIsHealthy(id string) error {
 	}
 
 	if info.State == nil || info.State.Health == nil {
-		return errors.New("Container does not have health state information")
+		return errors.New("container does not have health state information")
 	}
 
 	if info.State.Health.Status == "unhealthy" {
-		return errors.New("Container is unhealthy")
+		return errors.New("container is unhealthy")
 	}
 
 	if info.State.Health.Status == "healthy" {
 		return nil
 	}
 
-	return runner.UpgradeToEphemeral(errors.New("Container not yet healthy"))
+	return runner.UpgradeToEphemeral(errors.New("container not yet healthy"))
 }
